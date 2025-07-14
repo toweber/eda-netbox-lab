@@ -14,7 +14,7 @@ The NetBox app in EDA enables:
 - Working EDA installation
 - `kubectl` access to the EDA cluster
 - `uv` tool (will be installed by init script)
-- `helm` v3.x installed
+- `helm` v3.x installed - https://helm.sh/docs/intro/install/
 
 ## Lab Components
 
@@ -37,7 +37,7 @@ The NetBox app in EDA enables:
    ./init.sh
    ```
    This will:
-   - Install NetBox using Helm
+   - Install NetBox using Helm ( takes ~10 minutes )
    - Create Kubernetes secrets
    - Configure webhook endpoint
    - Set up initial prefixes and tags
@@ -55,9 +55,9 @@ The NetBox app in EDA enables:
 4. **Import topology to EDA**:
    ```bash
    clab-connector integrate \
-  --topology-data clab-eda-nb/topology-data.json \
-  --eda-url "https://$(cat .eda_api_address)" \
-  --skip-edge-intfs
+   --topology-data clab-eda-nb/topology-data.json \
+   --eda-url "https://$(cat .eda_api_address)" \
+   --skip-edge-intfs
    ```
 
 5. **Apply EDA resources**:
