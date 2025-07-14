@@ -65,7 +65,7 @@ The NetBox app in EDA enables:
    # Install NetBox app
    kubectl apply -f manifests/0001_netbox_app_install.yaml
    
-   # Wait for app to be ready
+   # Wait for the netbox app to be ready
    
    # Apply remaining resources
    kubectl apply -f manifests/
@@ -156,12 +156,12 @@ Map NetBox prefixes to EDA allocation pools:
 
 ### Check NetBox connectivity:
 ```bash
-kubectl get instance netbox -n eda -o yaml
+kubectl get instance netbox -n clab-eda-nb -o yaml
 ```
 
 ### View allocation status:
 ```bash
-kubectl get allocation -n eda
+kubectl get allocation -n clab-eda-nb
 ```
 
 ### Check webhook logs:
@@ -179,7 +179,7 @@ kubectl port-forward -n netbox service/netbox-server 8001:80 --address=0.0.0.0
 To remove all lab resources:
 ```bash
 ./cleanup.sh
-sudo containerlab destroy -t eda-nb.clab.yaml
+containerlab destroy -t eda-nb.clab.yaml
 ```
 
 ## Additional Resources
