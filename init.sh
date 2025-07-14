@@ -159,21 +159,28 @@ data:
   signatureKey: $(echo -n "$WEBHOOK_SECRET" | base64)
 EOF
 
+# Configure NetBox automatically
 echo ""
+echo "Configuring NetBox for EDA integration..."
+uv run scripts/configure_netbox.py
+
+echo ""
+echo "==================================="
 echo "NetBox installation completed!"
-echo "NetBox URL: $NETBOX_URL"
-echo "Username: admin"
-echo "Password: netbox"
+echo "==================================="
 echo ""
-echo "NetBox API Token: $NETBOX_API_TOKEN"
+echo "NetBox Access:"
+echo "  URL: $NETBOX_URL"
+echo "  Username: admin"
+echo "  Password: netbox"
+echo ""
+if [ "$SERVICE_TYPE" != "LoadBalancer" ] || [ -z "$NETBOX_IP" ]; then
+    echo "Note: Using port-forward to access NetBox"
+    echo "  - For Kind/local clusters, you may need additional port-forwarding from your host"
+    echo "  - To restart port-forward: kubectl port-forward -n netbox service/netbox-server 8001:80 --address=0.0.0.0"
+fi
 echo ""
 echo "Next steps:"
-echo "1. Access NetBox UI at $NETBOX_URL"
-echo "2. Configure NetBox webhook and event rules (see scripts/configure_netbox.py)"
-echo "3. Apply EDA NetBox resources from manifests/"
-echo ""
-echo "To configure NetBox automatically, run:"
-echo "uv run scripts/configure_netbox.py"
-echo ""
-echo "To restart port-forward if needed:"
-echo "kubectl port-forward -n netbox service/netbox-server 8001:80 --address=0.0.0.0"
+echo "1. Deploy the containerlab topology: sudo containerlab deploy -t eda-nb.clab.yaml"
+echo "2. Import topology to EDA: clab-connector import -t eda-nb.clab.yaml"
+echo "3. Apply EDA resources: kubectl apply -f manifests/"

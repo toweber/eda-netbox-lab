@@ -184,6 +184,6 @@ sudo containerlab destroy -t eda-nb.clab.yaml
 
 ## Additional Resources
 
-- [EDA NetBox App Documentation](https://docs.eda.nokia.com/apps/netbox)
+- [EDA NetBox App Detailed Guide](https://docs.eda.dev/25.4/apps/netbox/) - Comprehensive documentation on the NetBox app including configuration examples and troubleshooting
 - [NetBox Documentation](https://docs.netbox.dev/)
 - [Containerlab Documentation](https://containerlab.dev/)
