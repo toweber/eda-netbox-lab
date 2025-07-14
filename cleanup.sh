@@ -9,16 +9,13 @@ pkill -f "kubectl port-forward.*netbox" 2>/dev/null || true
 # Delete EDA resources
 echo "Deleting EDA resources..."
 kubectl delete -f manifests/0060_fabric.yaml 2>/dev/null || true
-kubectl delete -f manifests/0050_asn_pool.yaml 2>/dev/null || true
-kubectl delete -f manifests/0040_topolinks.yaml 2>/dev/null || true
-kubectl delete -f manifests/0030_interfaces.yaml 2>/dev/null || true
 kubectl delete -f manifests/0020_allocations.yaml 2>/dev/null || true
 kubectl delete -f manifests/0010_netbox_instance.yaml 2>/dev/null || true
 
 # Delete secrets
 echo "Deleting secrets..."
-kubectl delete secret netbox-api-token -n eda 2>/dev/null || true
-kubectl delete secret netbox-webhook-signature -n eda 2>/dev/null || true
+kubectl delete secret netbox-api-token -n clab-eda-nb 2>/dev/null || true
+kubectl delete secret netbox-webhook-signature -n clab-eda-nb 2>/dev/null || true
 
 # Uninstall NetBox app from EDA
 echo "Uninstalling NetBox app..."
