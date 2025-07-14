@@ -1,0 +1,54 @@
+name: eda-nb
+
+mgmt:
+  network: eda-nb
+  ipv4-subnet: 10.59.2.0/24
+
+topology:
+  kinds:
+    nokia_srlinux:
+      image: ghcr.io/nokia/srlinux:25.3.2
+      type: ixrd2l
+
+  nodes:
+    leaf1:
+      kind: nokia_srlinux
+      mgmt-ipv4: 10.59.2.11
+
+    leaf2:
+      kind: nokia_srlinux
+      mgmt-ipv4: 10.59.2.12
+
+    spine1:
+      kind: nokia_srlinux
+      mgmt-ipv4: 10.59.2.21
+
+    spine2:
+      kind: nokia_srlinux
+      mgmt-ipv4: 10.59.2.22
+
+    server1:
+      kind: linux
+      mgmt-ipv4: 10.59.2.31
+      image: ghcr.io/srl-labs/network-multitool
+      binds:
+        - configs/servers:/configs
+      exec:
+        - bash /configs/__clabNodeName__.sh
+
+    server2:
+      kind: linux
+      mgmt-ipv4: 10.59.2.32
+      image: ghcr.io/srl-labs/network-multitool
+      binds:
+        - configs/servers:/configs
+      exec:
+        - bash /configs/__clabNodeName__.sh
+
+  links:
+    - endpoints: ["leaf1:ethernet-1/1", "server1:eth1"]
+    - endpoints: ["leaf2:ethernet-1/1", "server2:eth1"]
+    - endpoints: ["spine1:ethernet-1/1", "leaf1:ethernet-1/49"]
+    - endpoints: ["spine2:ethernet-1/1", "leaf1:ethernet-1/50"]
+    - endpoints: ["spine1:ethernet-1/2", "leaf2:ethernet-1/49"]
+    - endpoints: ["spine2:ethernet-1/2", "leaf2:ethernet-1/50"]

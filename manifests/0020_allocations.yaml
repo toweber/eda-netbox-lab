@@ -1,0 +1,77 @@
+---
+# System IP allocation pool (IPv4)
+apiVersion: netbox.eda.nokia.com/v1alpha1
+kind: Allocation
+metadata:
+  name: nb-systemip-v4
+  namespace: clab-eda-nb
+spec:
+  enabled: true
+  instance: netbox
+  tags:
+    - eda-systemip-v4
+  type: ip-address
+  description: "IPv4 System IPs for spine and leaf switches"
+
+---
+# System IP allocation pool (IPv6)
+apiVersion: netbox.eda.nokia.com/v1alpha1
+kind: Allocation
+metadata:
+  name: nb-systemip-v6
+  namespace: clab-eda-nb
+spec:
+  enabled: true
+  instance: netbox
+  tags:
+    - eda-systemip-v6
+  type: ip-address
+  description: "IPv6 System IPs for spine and leaf switches"
+
+---
+# ISL subnet allocation pool (IPv4)
+apiVersion: netbox.eda.nokia.com/v1alpha1
+kind: Allocation
+metadata:
+  name: nb-isl-v4
+  namespace: clab-eda-nb
+spec:
+  enabled: true
+  instance: netbox
+  tags:
+    - eda-isl-v4
+  type: subnet
+  subnetLength: 31  # /31 for point-to-point links
+  description: "IPv4 subnets for inter-switch links"
+
+---
+# ISL subnet allocation pool (IPv6)
+apiVersion: netbox.eda.nokia.com/v1alpha1
+kind: Allocation
+metadata:
+  name: nb-isl-v6
+  namespace: clab-eda-nb
+spec:
+  enabled: true
+  instance: netbox
+  tags:
+    - eda-isl-v6
+  type: subnet
+  subnetLength: 127  # /127 for point-to-point links
+  description: "IPv6 subnets for inter-switch links"
+
+---
+# Management IP allocation pool
+apiVersion: netbox.eda.nokia.com/v1alpha1
+kind: Allocation
+metadata:
+  name: nb-mgmt-v4
+  namespace: clab-eda-nb
+spec:
+  enabled: true
+  instance: netbox
+  tags:
+    - eda-mgmt-v4
+  type: ip-in-subnet
+  subnetLength: 32  # Individual IPs with mask
+  description: "Management IPs for devices"
